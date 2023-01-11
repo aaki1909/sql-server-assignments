@@ -1,0 +1,16 @@
+use sqlDatabase
+
+SELECT * FROM orders
+WHERE customerId IN (SELECT id FROM customer WHERE phone='8436543219')
+
+
+SELECT * FROM product
+WHERE category='natural'
+
+
+SELECT * FROM orders
+WHERE customerId IN (SELECT id FROM customer WHERE country NOT LIKE 'germany')
+
+
+SELECT * FROM orders
+WHERE id IN (SELECT orderId FROM orderItem WHERE productId IN (SELECT id FROM product WHERE productName LIKE 'chai')) 

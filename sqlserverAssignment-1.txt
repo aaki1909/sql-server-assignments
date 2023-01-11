@@ -1,0 +1,89 @@
+CREATE DATABASE sqlDatabase;
+
+USE sqlDatabase;
+
+CREATE TABLE product
+(id int NOT NULL PRIMARY KEY,
+ productName nvarchar(50) NOT NULL,
+ unitPrice decimal(12,2),
+ package nvarchar(30),
+ isDiscontinued bit);
+
+CREATE TABLE customer
+(id int NOT NULL PRIMARY KEY,
+firstName nvarchar(40) NOT NULL,
+lastName nvarchar(40) NOT NULL,
+city nvarchar(40) NOT NULL,
+country nvarchar(40) NOT NULL,
+phone nvarchar(40) NOT NULL);
+
+CREATE TABLE orders
+(id int NOT NULL PRIMARY KEY,
+ orderDate datetime NOT NULL,
+ orderNumber nvarchar(10),
+ customerId int REFERENCES customer(id),
+ totalAmount decimal(12,2));
+
+CREATE TABLE orderItem
+(id int NOT NULL PRIMARY KEY,
+ orderId int REFERENCES orders(id),
+ productId int REFERENCES product(id),
+ unitPrice decimal(12,2),
+ quantity int);
+
+INSERT INTO product VALUES 
+(201, 'sea food', 500, 'box', 0),
+(202, 'chai', 200, 'Box', 0),
+(203, 'bisquits', 420, 'Cardboard', 0),
+(204, 'cool drinks', 300, 'Box', 0),
+(205, 'Hand bag', 700, 'Box', 0),
+(206, 'Mobile cover', 900, 'Box', 1);
+
+
+INSERT INTO customer VALUES
+(421, 'Priya', 'Devi', 'Hyderabad', 'India', '8436543219'),
+(422, 'John', 'Robert', 'NewYork', 'USA', '9763452922'),
+(423, 'Ali', 'saif', 'Berlin', 'Germany', '8965428468'),
+(424, 'Bavi', 'ps', 'chennai', 'India', '7984367229'),
+(425, 'Lilli', 'kv', 'Banglore', 'India', '9908742794');
+
+
+INSERT INTO orders VALUES 
+(45678, '2022-12-23 07:30', '656755', '421', 500),
+(45689, '2022-11-29 09:20', '645875', '422', 200),
+(45697, '2023-01-01 10:40', '893456', '423', 420),
+(45679, '2023-01-05 02:55', '895623', '424', 300),
+(45694, '2023-01-08 08:37', '656984', '425', 700);
+
+INSERT INTO orderItem VALUES 
+(401, 45678, 201, 500, 1),
+(402, 45689, 202, 200, 1),
+(403, 45697, 203, 420, 1),
+(404, 45679, 204, 300, 1),
+(405, 45694, 205, 700, 1),
+(406, 45678, 206, 500, 1);
+
+SELECT * FROM customer
+
+SELECT country FROM customer 
+WHERE firstName LIKE 'A%' OR firstName LIKE 'I%';
+
+SELECT * FROM customer 
+WHERE firstName LIKE '__i%';
+
+SELECT country FROM customer 
+WHERE firstName LIKE 'A%' OR firstName LIKE 'I%';
+
+SELECT * FROM customer 
+WHERE firstName LIKE '__i%';
+
+SELECT * FROM customer
+WHERE country='Germany';
+
+
+INSERT INTO customer VALUES
+(426, 'kamala', 'Roop', 'Delhi', 'India', '030-0074321');
+
+SELECT * FROM customer
+
+
